@@ -2,6 +2,8 @@
 - name: create a non-root user with sudo rights
   hosts: all
   remote_user: root
+  vars_files:
+  - customize.yml
   tasks:
 
   - name: update aptitude cache
@@ -20,15 +22,15 @@
 
   - name: create the user account
     user: name={{ username }} state=present
-          append=true group=sudo
+          append=true groups=sudo
 
   - name: install your public key
     authorized_key: user={{ username }} state=present
-                    key={{ lookup('file', local_ssh_pubkey) }}
+                    key="{{ lookup('file', local_ssh_pubkey) }}"
 
   - name: synchronize the known_hosts file.
-    copy: src=~/.ssh/known_hosts dest={{ home }}/.ssh/known_hosts
-          owner={{ username }} group={{ username }} mode=0644
+    copy: src=~/.ssh/known_hosts dest=/home/{{ username }}/.ssh/known_hosts
+          owner={{ username }} mode=0644
 
   - name: some basic apt stuff
     apt: pkg={{ item }} state=installed
@@ -56,6 +58,7 @@
 
   - name: stack it
     command: chdir=~/devstack ./stack.sh
+    ignore_errors: yes
 
   - name: reinstall cinder's requirements
     command: pip install --upgrade -r /opt/stack/cinder/requirements.txt
