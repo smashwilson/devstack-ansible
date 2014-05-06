@@ -1,0 +1,40 @@
+[[local|localrc]]
+ADMIN_PASSWORD={{ password }}
+MYSQL_PASSWORD={{ password }}
+RABBIT_PASSWORD={{ password }}
+SERVICE_PASSWORD={{ password }}
+SERVICE_TOKEN={{ service_token }}
+
+SWIFT_HASH={{ swift_hash }}
+
+# Services
+ENABLED_SERVICES=rabbit,mysql,key
+ENABLED_SERVICES+=,n-api,n-crt,n-obj,n-cpu,n-cond,n-sch,n-novnc,n-cauth
+ENABLED_SERVICES+=,neutron,q-svc,q-agt,q-dhcp,q-l3,q-meta,q-lbaas
+ENABLED_SERVICES+=,s-proxy,s-object,s-container,s-account
+ENABLED_SERVICES+=,g-api,g-reg
+ENABLED_SERVICES+=,cinder,c-api,c-vol,c-sch,c-bak
+ENABLED_SERVICES+=,heat,h-api,h-api-cfn,h-api-cw,h-eng
+ENABLED_SERVICES+=,trove,tr-api,tr-tmgr,tr-cond
+ENABLED_SERVICES+=,horizon
+
+# Images
+# Use this image when creating test instances
+IMAGE_URLS+=",http://cdn.download.cirros-cloud.net/0.3.2/cirros-0.3.2-x86_64-disk.img"
+# Use this image when working with Orchestration (Heat)
+IMAGE_URLS+=",http://fedorapeople.org/groups/heat/prebuilt-jeos-images/F17-x86_64-cfntools.qcow2"
+
+# Branches
+NOVA_BRANCH={{ branch }}
+CINDER_BRANCH={{ branch }}
+GLANCE_BRANCH={{ branch }}
+HORIZON_BRANCH={{ branch }}
+KEYSTONE_BRANCH={{ branch }}
+NEUTRON_BRANCH={{ branch }}
+SWIFT_BRANCH={{ branch }}
+
+# Enable Logging
+LOGFILE=/opt/stack/logs/stack.sh.log
+VERBOSE=True
+LOG_COLOR=True
+SCREEN_LOGDIR=/opt/stack/logs

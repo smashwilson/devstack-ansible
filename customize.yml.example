@@ -1,0 +1,7 @@
+---
+username: stack
+password: password
+local_ssh_pubkey: ~/.ssh/id_rsa.pub
+service_token: token
+swift_hash: 35685f54c42d6f3b86da2a647cdd2697
+branch: stable/icehouse
